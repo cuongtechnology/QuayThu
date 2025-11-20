@@ -67,6 +67,9 @@
                 <a href="/" class="px-4 py-2 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all text-sm font-semibold">
                     🏠 Trang chủ
                 </a>
+                <a href="?action=quay_thu" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
+                    🎲 Quay thử
+                </a>
                 <a href="?action=history" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
                     📅 Lịch sử
                 </a>
@@ -87,14 +90,20 @@
     <main class="container mx-auto px-4 py-6 max-w-6xl">
         
         <!-- Feature Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+            <a href="?action=quay_thu" class="bg-gradient-to-br from-purple-400 to-pink-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="text-3xl mb-2">🎲</div>
+                <div class="font-bold text-sm">Quay Thử</div>
+                <div class="text-xs opacity-90">Thử vận may</div>
+            </a>
+            
             <a href="?action=check_ticket" class="bg-gradient-to-br from-green-400 to-blue-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                 <div class="text-3xl mb-2">🎫</div>
                 <div class="font-bold text-sm">Dò Vé Số</div>
                 <div class="text-xs opacity-90">Kiểm tra nhanh</div>
             </a>
             
-            <a href="?action=prediction" class="bg-gradient-to-br from-purple-400 to-pink-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+            <a href="?action=prediction" class="bg-gradient-to-br from-indigo-400 to-purple-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                 <div class="text-3xl mb-2">🔮</div>
                 <div class="font-bold text-sm">Soi Cầu</div>
                 <div class="text-xs opacity-90">Dự đoán số</div>

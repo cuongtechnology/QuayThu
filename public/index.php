@@ -35,12 +35,26 @@ switch ($action) {
         echo json_encode($data);
         exit;
     
-    // Random number generation (Quay thử)
+    // Random number generation (Quay thử) - Full page
+    case 'quay_thu':
+        $data = ['region' => $region];
+        require_once __DIR__ . '/../src/views/quay_thu.php';
+        break;
+    
+    // Random number generation (Quay thử) - API
     case 'generate':
         $controller = new HomeController();
         $data = $controller->generateRandomNumbers($region);
         header('Content-Type: application/json');
         echo json_encode($data);
+        exit;
+    
+    // Seed sample data
+    case 'seed_data':
+        require_once __DIR__ . '/../src/services/RealDataService.php';
+        $realDataService = new RealDataService();
+        $realDataService->seedSampleData();
+        echo json_encode(['success' => true, 'message' => 'Sample data seeded successfully!']);
         exit;
     
     // History page
