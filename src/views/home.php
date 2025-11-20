@@ -60,10 +60,58 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Navigation Menu -->
+        <div class="container mx-auto px-4 py-2 border-t border-white border-opacity-20">
+            <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                <a href="/" class="px-4 py-2 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all text-sm font-semibold">
+                    🏠 Trang chủ
+                </a>
+                <a href="?action=history" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
+                    📅 Lịch sử
+                </a>
+                <a href="?action=statistics_detail" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
+                    📊 Thống kê
+                </a>
+                <a href="?action=prediction" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
+                    🔮 Soi cầu
+                </a>
+                <a href="?action=check_ticket" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
+                    🎫 Dò vé số
+                </a>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-6 max-w-6xl">
+        
+        <!-- Feature Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <a href="?action=check_ticket" class="bg-gradient-to-br from-green-400 to-blue-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="text-3xl mb-2">🎫</div>
+                <div class="font-bold text-sm">Dò Vé Số</div>
+                <div class="text-xs opacity-90">Kiểm tra nhanh</div>
+            </a>
+            
+            <a href="?action=prediction" class="bg-gradient-to-br from-purple-400 to-pink-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="text-3xl mb-2">🔮</div>
+                <div class="font-bold text-sm">Soi Cầu</div>
+                <div class="text-xs opacity-90">Dự đoán số</div>
+            </a>
+            
+            <a href="?action=statistics_detail" class="bg-gradient-to-br from-orange-400 to-red-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="text-3xl mb-2">📊</div>
+                <div class="font-bold text-sm">Thống Kê</div>
+                <div class="text-xs opacity-90">Chi tiết</div>
+            </a>
+            
+            <a href="?action=history" class="bg-gradient-to-br from-cyan-400 to-blue-600 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="text-3xl mb-2">📅</div>
+                <div class="font-bold text-sm">Lịch Sử</div>
+                <div class="text-xs opacity-90">Tra cứu</div>
+            </a>
+        </div>
         
         <!-- Region Tabs -->
         <div class="mb-6">
