@@ -1,0 +1,28 @@
+# Database
+database/*.db
+database/*.db-journal
+database/*.db-wal
+database/*.db-shm
+
+# Logs
+*.log
+/tmp/*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PHP
+vendor/
+composer.lock
+
+# Temporary files
+*.tmp
+*.temp
