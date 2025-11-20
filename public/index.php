@@ -183,6 +183,27 @@ switch ($action) {
         echo json_encode($data);
         exit;
     
+    // Get countdown for a region
+    case 'countdown':
+        require_once __DIR__ . '/../src/helpers/DrawTimeHelper.php';
+        $region = $_GET['region'] ?? 'XSMB';
+        $countdown = DrawTimeHelper::getCountdown($region);
+        header('Content-Type: application/json');
+        echo json_encode($countdown);
+        exit;
+    
+    // Get draw status for all regions
+    case 'draw_status':
+        require_once __DIR__ . '/../src/helpers/DrawTimeHelper.php';
+        $status = [
+            'XSMB' => DrawTimeHelper::getDrawStatus('XSMB'),
+            'XSMT' => DrawTimeHelper::getDrawStatus('XSMT'),
+            'XSMN' => DrawTimeHelper::getDrawStatus('XSMN'),
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($status);
+        exit;
+    
     default:
         $controller = new HomeController();
         $data = $controller->index();

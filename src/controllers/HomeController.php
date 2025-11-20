@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../services/LotteryService.php';
 require_once __DIR__ . '/../models/LotteryModel.php';
+require_once __DIR__ . '/../helpers/DrawTimeHelper.php';
 
 /**
  * Home page controller
@@ -18,12 +19,20 @@ class HomeController {
      * Display home page with today's results
      */
     public function index() {
-        $today = date('Y-m-d');
+        // Get appropriate dates based on draw times
+        $xsmbDate = DrawTimeHelper::getResultDate('XSMB');
+        $xsmtDate = DrawTimeHelper::getResultDate('XSMT');
+        $xsmnDate = DrawTimeHelper::getResultDate('XSMN');
         
-        // Fetch or get today's results
-        $xsmb = $this->lotteryService->fetchLotteryData('XSMB', $today);
-        $xsmt = $this->lotteryService->fetchLotteryData('XSMT', $today);
-        $xsmn = $this->lotteryService->fetchLotteryData('XSMN', $today);
+        // Get draw status for each region
+        $xsmbStatus = DrawTimeHelper::getDrawStatus('XSMB');
+        $xsmtStatus = DrawTimeHelper::getDrawStatus('XSMT');
+        $xsmnStatus = DrawTimeHelper::getDrawStatus('XSMN');
+        
+        // Fetch results for appropriate dates
+        $xsmb = $this->lotteryService->fetchLotteryData('XSMB', $xsmbDate);
+        $xsmt = $this->lotteryService->fetchLotteryData('XSMT', $xsmtDate);
+        $xsmn = $this->lotteryService->fetchLotteryData('XSMN', $xsmnDate);
 
         // Calculate statistics
         $xsmbStats = $this->lotteryService->calculateStatistics('XSMB', 30);
@@ -39,10 +48,13 @@ class HomeController {
         }
 
         return [
-            'today' => $today,
+            'today' => date('Y-m-d'),
             'xsmb' => $xsmb,
             'xsmt' => $xsmt,
             'xsmn' => $xsmn,
+            'xsmb_status' => $xsmbStatus,
+            'xsmt_status' => $xsmtStatus,
+            'xsmn_status' => $xsmnStatus,
             'hotNumbers' => $hotNumbers,
             'coldNumbers' => $coldNumbers,
             'headTailStats' => $headTailStats,

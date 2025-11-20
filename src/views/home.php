@@ -153,7 +153,22 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
                 <div class="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-3">
                     <h2 class="text-lg md:text-xl font-bold">Kết Quả Xổ Số Miền Bắc - XSMB</h2>
-                    <p class="text-sm opacity-90"><?php echo $data['xsmb']['draw_day'] ?? ''; ?> - <?php echo date('d/m/Y', strtotime($data['today'])); ?></p>
+                    <?php if ($data['xsmb_status']['status'] === 'waiting'): ?>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm opacity-90">
+                                <span class="inline-block w-2 h-2 bg-yellow-300 rounded-full animate-pulse mr-2"></span>
+                                Đang chờ quay - Kết quả ngày <?php echo $data['xsmb_status']['date_display']; ?>
+                            </p>
+                            <div class="text-sm font-semibold bg-white bg-opacity-20 px-3 py-1 rounded-lg">
+                                <span id="countdown-XSMB">--:--:--</span>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <p class="text-sm opacity-90">
+                            <span class="inline-block w-2 h-2 bg-green-300 rounded-full mr-2"></span>
+                            <?php echo $data['xsmb']['draw_day'] ?? ''; ?> - <?php echo $data['xsmb_status']['date_display']; ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
                 
                 <?php if ($data['xsmb']): ?>
@@ -238,11 +253,15 @@
                     </table>
                 </div>
                 <?php else: ?>
-                <div class="p-8 text-center text-gray-500">
-                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="p-8 text-center">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <p>Chưa có kết quả. Vui lòng quay lại sau.</p>
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">⏰ Đang Chờ Kỳ Quay</h3>
+                    <p class="text-gray-600 mb-4">Kỳ quay sẽ diễn ra lúc <strong class="text-red-600">18:15</strong> hôm nay</p>
+                    <div class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-bold text-lg">
+                        <span id="countdown-display-XSMB">--:--:--</span>
+                    </div>
                 </div>
                 <?php endif; ?>
             </div>
@@ -645,6 +664,68 @@
                 console.error('Error generating random numbers:', error);
             }
         }
+
+        // Countdown functionality
+        const countdowns = {
+            'XSMB': null,
+            'XSMT': null,
+            'XSMN': null
+        };
+
+        async function updateCountdowns() {
+            try {
+                const response = await fetch('?action=draw_status');
+                const statuses = await response.json();
+
+                for (const [region, status] of Object.entries(statuses)) {
+                    if (status.status === 'waiting' && status.countdown) {
+                        countdowns[region] = status.countdown;
+                        updateCountdownDisplay(region);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching countdown:', error);
+            }
+        }
+
+        function updateCountdownDisplay(region) {
+            const countdown = countdowns[region];
+            if (!countdown) return;
+
+            const headerElement = document.getElementById(`countdown-${region}`);
+            const displayElement = document.getElementById(`countdown-display-${region}`);
+
+            let totalSeconds = countdown.total_seconds;
+
+            const updateTimer = () => {
+                if (totalSeconds <= 0) {
+                    if (headerElement) headerElement.textContent = '00:00:00';
+                    if (displayElement) displayElement.textContent = '00:00:00';
+                    // Reload page when countdown reaches zero
+                    setTimeout(() => location.reload(), 1000);
+                    return;
+                }
+
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+
+                const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                if (headerElement) headerElement.textContent = timeString;
+                if (displayElement) displayElement.textContent = timeString;
+
+                totalSeconds--;
+                setTimeout(updateTimer, 1000);
+            };
+
+            updateTimer();
+        }
+
+        // Initialize countdowns on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCountdowns();
+        });
 
         // Auto-refresh every 5 minutes
         setInterval(() => {
