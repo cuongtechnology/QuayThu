@@ -82,6 +82,9 @@
                 <a href="?action=check_ticket" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
                     🎫 Dò vé số
                 </a>
+                <a href="?action=so_mo" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all text-sm font-semibold">
+                    🌙 Sổ mơ
+                </a>
             </div>
         </div>
     </header>
@@ -90,7 +93,7 @@
     <main class="container mx-auto px-4 py-6 max-w-6xl">
         
         <!-- Feature Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
             <a href="?action=quay_thu" class="bg-gradient-to-br from-purple-400 to-pink-500 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                 <div class="text-3xl mb-2">🎲</div>
                 <div class="font-bold text-sm">Quay Thử</div>
@@ -119,6 +122,12 @@
                 <div class="text-3xl mb-2">📅</div>
                 <div class="font-bold text-sm">Lịch Sử</div>
                 <div class="text-xs opacity-90">Tra cứu</div>
+            </a>
+            
+            <a href="?action=so_mo" class="bg-gradient-to-br from-pink-400 to-purple-600 text-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="text-3xl mb-2">🌙</div>
+                <div class="font-bold text-sm">Sổ Mơ</div>
+                <div class="text-xs opacity-90">Giải mã mơ</div>
             </a>
         </div>
         

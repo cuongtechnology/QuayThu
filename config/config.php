@@ -6,6 +6,7 @@
 define('DB_PATH', __DIR__ . '/../database/xoso.db');
 define('BASE_URL', '/');
 define('TIMEZONE', 'Asia/Ho_Chi_Minh');
+define('SITE_NAME', 'Xổ Số VN');
 
 // Set timezone
 date_default_timezone_set(TIMEZONE);

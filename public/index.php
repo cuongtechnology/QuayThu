@@ -4,6 +4,7 @@ require_once __DIR__ . '/../src/controllers/HomeController.php';
 require_once __DIR__ . '/../src/controllers/HistoryController.php';
 require_once __DIR__ . '/../src/controllers/CheckTicketController.php';
 require_once __DIR__ . '/../src/controllers/PredictionController.php';
+require_once __DIR__ . '/../src/controllers/DreamController.php';
 
 // Handle routing
 $action = $_GET['action'] ?? 'home';
@@ -131,6 +132,56 @@ switch ($action) {
         $data = $controller->getStatistics($region, $periodDays);
         require_once __DIR__ . '/../src/views/statistics.php';
         break;
+    
+    // Sổ mơ (Dream interpretation) - Main page
+    case 'so_mo':
+        $data = ['page' => 'so_mo'];
+        require_once __DIR__ . '/../src/views/so_mo.php';
+        break;
+    
+    // Sổ mơ - Search dreams
+    case 'so_mo_search':
+        $controller = new DreamController();
+        $keyword = $_GET['keyword'] ?? '';
+        $data = $controller->searchDream($keyword);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    
+    // Sổ mơ - Get all dreams
+    case 'so_mo_all':
+        $controller = new DreamController();
+        $data = $controller->getDreamsByCategory();
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    
+    // Sổ mơ - Get dreams by category
+    case 'so_mo_category':
+        $controller = new DreamController();
+        $category = $_GET['category'] ?? null;
+        $data = $controller->getDreamsByCategory($category);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    
+    // Sổ mơ - Random suggestions
+    case 'so_mo_random':
+        $controller = new DreamController();
+        $count = $_GET['count'] ?? 5;
+        $data = $controller->getRandomSuggestions($count);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    
+    // Sổ mơ - Interpret complex dream
+    case 'so_mo_interpret':
+        $controller = new DreamController();
+        $dreamText = $_POST['dream_text'] ?? $_GET['dream_text'] ?? '';
+        $data = $controller->interpretDream($dreamText);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
     
     default:
         $controller = new HomeController();
